@@ -34,8 +34,11 @@ messageForm.addEventListener('submit', (event) => {
 textArea.addEventListener('keypress', (event) => {
 	if (event.keyCode === 13) {
 		let capturedMessage = document.forms["message-form"]["message"].value;
-		document.forms["message-form"]["message"].value = '';
-		addUserMessage(capturedMessage);
+		if (capturedMessage !== '') {
+			document.forms["message-form"]["message"].value = '';
+			addUserMessage(capturedMessage);
+			textArea.blur();
+		}
 	}
 });
 

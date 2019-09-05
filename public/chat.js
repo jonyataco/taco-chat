@@ -88,7 +88,7 @@ function showDisconnect(user) {
 
 socket.on('disconnect', () => {
 	chatContainer.style.display = 'none';
-	disconnectMessage.innerHTML = "You have been disconnected for inactivity! "
+	disconnectMessage.innerHTML = "You have been disconnected! " 
 								+ "Please refresh page to login again";
 	disconnectMessage.style.display = 'block';
 })

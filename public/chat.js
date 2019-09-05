@@ -8,6 +8,7 @@ let chatContainer = document.getElementById("chat-container");
 let containerStyle = window.getComputedStyle(loginContainer);
 let chatStyle = window.getComputedStyle(chatContainer);
 let chatWindow = document.getElementById("chat-window");
+let disconnectMessage = document.getElementById("disconnect-message");
 
 // Event listener for submit when user has entered a username for the chat room.
 // Uses a socket.emit to poll the server and check if the username is taken.
@@ -84,6 +85,13 @@ function showDisconnect(user) {
 	chatWindow.append(disconnectMessage);
 	chatWindow.scrollTop = chatWindow.scrollHeight;
 }
+
+socket.on('disconnect', () => {
+	chatContainer.style.display = 'none';
+	disconnectMessage.innerHTML = "You have been disconnected for inactivity! "
+								+ "Please refresh page to login again";
+	disconnectMessage.style.display = 'block';
+})
 
 socket.on('usersCount', (count) => {
 	document.getElementById("user-num").innerHTML = count;

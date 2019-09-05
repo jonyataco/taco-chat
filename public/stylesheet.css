@@ -144,6 +144,13 @@ html, body {
 	height: 90%;
 }
 
+#disconnect-message {
+	display: none;
+	text-align: center;
+	font-size: 26px;
+	color: #D8000C;
+}
+
 .user-message {
 	font-family: 'Open Sans', sans-serif;
 	float: right;

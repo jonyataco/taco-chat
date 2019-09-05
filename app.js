@@ -2,11 +2,11 @@
 let express = require('express'); 
 let socket = require('socket.io');
 let ejs = require('ejs');
-let PORT = process.env.PORT || 3000
+let port = process.env.PORT || 3000
 
 // Setting up the app, server, and view engine
 let app = express();
-let server = app.listen(PORT, function () {
+let server = app.listen(port, function () {
 	console.log(`listening to requests on ${port}`);
 });
 app.set('view engine', 'ejs');

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!--Google Fonts-->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="stylesheet.css">
+	<title>Chat app using websockets</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
+	<script defer src="chat.js"></script>
+</head>
+<body>
+	<div id="container">
+		<div id="header">
+			<h1>Hello! Please enter in a username to start chatting 😊</h1>
+		</div>
+		<div id="server-status">
+			<h2>There are currently <span id="user-num">placeholder</span> users connected</h2>
+		</div>
+		<p id="warning"></p>
+		<form id="login-form" action="#">
+			<input type="text" name="username" placeholder="Username">
+			<input type="submit" value="Submit">
+		</form>
+	</div>
+	<div id="chat-container">
+		<div id="chat-window">
+		</div>
+		<form id="message-form" action="#">
+			<div id="compose-message">
+				<textarea name="message" rows="1", columns="100"></textarea>
+			</div>
+			<div id="send-message">
+				<input type="submit" name="send-message" value="Send">
+			</div>
+		</form>
+	</div>
+</body>
+</html>

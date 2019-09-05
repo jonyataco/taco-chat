@@ -36,7 +36,7 @@ textArea.addEventListener('keypress', (event) => {
 		let capturedMessage = document.forms["message-form"]["message"].value;
 
 		// Regex to check if the captured string only contained whitespaces
-		if (!capturedMessage.replace(/\s/g, '').length) {
+		if (capturedMessage.trim().length) {
 			document.forms["message-form"]["message"].value = '';
 			addUserMessage(capturedMessage);
 			textArea.blur();

@@ -7,7 +7,7 @@ let port = process.env.PORT || 3000
 // Setting up the app, server, and view engine
 let app = express();
 let server = app.listen(port, function () {
-	console.log(`listening to requests on ${port}`);
+  console.log(`listening to requests on ${port}`);
 });
 app.set('view engine', 'ejs');
 // Middleware to server static files such as CSS and client side JS
@@ -18,7 +18,7 @@ let io = socket(server);
 
 // ROUTING
 app.get('/', (req, res) => {
-	res.render('index');
+  res.render('index');
 });
 
 /* An object to hold the users that are currently connected.
@@ -34,43 +34,43 @@ let numUsers = 0;
 
 // SERVER LOGIC FOR HANDLING CHAT
 io.on('connection', (socket) => {
-	io.emit('usersCount', numUsers);
+  io.emit('usersCount', numUsers);
 
-	/* Disconnect can happen from the main page before a user even submits
-	 * a username so we want to check if the disconnected socket is part 
-	 * of the users associative array
-	 */
-	socket.on('disconnect', () => {
-		if (socket.id in users) {
-			let disconnectedUser = users[socket.id];
-			delete users[socket.id];
-			--numUsers;
-			io.emit('usersCount', numUsers);
-			io.to('main room').emit('disconnectEvent', disconnectedUser);
-		}
-	});
+  /* Disconnect can happen from the main page before a user even submits
+   * a username so we want to check if the disconnected socket is part 
+   * of the users associative array
+   */
+  socket.on('disconnect', () => {
+    if (socket.id in users) {
+      let disconnectedUser = users[socket.id];
+      delete users[socket.id];
+      --numUsers;
+      io.emit('usersCount', numUsers);
+      io.to('main room').emit('disconnectEvent', disconnectedUser);
+    }
+  });
 
-	/* Check if the username is already taken */
-	socket.on('usernameCheck', (username) => {
-		let result;
-		if (Object.values(users).includes(username))
-			result = false;
-		else {
-			users[socket.id] = username;
-			++numUsers;
-			socket.join('main room');
-			io.to('main room').emit('joinedEvent', username);
-			io.emit('usersCount', numUsers);
-			result = true
-		}
-		
-		socket.emit('usernameResult', result);
-	});
+  /* Check if the username is already taken */
+  socket.on('usernameCheck', (username) => {
+    let result;
+    if (Object.values(users).includes(username))
+      result = false;
+    else {
+      users[socket.id] = username;
+      ++numUsers;
+      socket.join('main room');
+      io.to('main room').emit('joinedEvent', username);
+      io.emit('usersCount', numUsers);
+      result = true
+    }
 
-	socket.on('sendMessage', (message) => {
-		let data = {user: users[socket.id],
-					body: message};
-		socket.to('main room').emit('receiveMessage', data);
-	})
+    socket.emit('usernameResult', result);
+  });
+
+  socket.on('sendMessage', (message) => {
+    let data = {user: users[socket.id],
+      body: message};
+    socket.to('main room').emit('receiveMessage', data);
+  })
 });
 
